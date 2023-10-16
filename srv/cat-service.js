@@ -1,34 +1,19 @@
-/* Disabled as dummy data is loaded
-let dummy = function (srv) {
+const cds = require('@sap/cds')
 
-    let discount = '-10 percent discounted';
-    // Reply mock data for Books...
-    let handler  = function () {
-        let dummyData = 
-        [
-            { ID: 201, title: 'Freedom from the Known', author_ID: 101, stock: 12 },
-            { ID: 251, title: 'The Raven', author_ID: 150, stock: 333 },
-            { ID: 252, title: 'Eleonora', author_ID: 150, stock: 555 },
-            { ID: 271, title: 'Catweazle', author_ID: 170, stock: 222 },
-        ];
-        return dummyData;
-    };
-    srv.on('READ', 'BookSet', handler);
+let service_handler = function (srv) {
 
-// Reply mock data for Authors...
-srv.on('READ', 'AuthorSet', () => [
-    { ID: 101, name: 'Emily Brontë' },
-    { ID: 150, name: 'Edgar Allen Poe' },
-    { ID: 170, name: 'Richard Carpenter' },
-])
+  //const { Books ,Authors } = cds.entities
 
-}
-*/
-let validate = function (srv) {
+  //Before all requests
+  /*
+  srv.before('*', (req) => {
+    const data = req.data;
+    console.debug(' >>>> ' + data);
+    console.log(Books);
+  });
+  */
 
-  let { Books } = cds.entities('my-bookshop');
-
-
+  //Custom function 
   srv.on('sendGreeting', async (req) => {
     const event = {
       myEventProperty: 'my message payload'
@@ -44,11 +29,32 @@ let validate = function (srv) {
     console.log('==> Received msg of type myEventName:' + msg.data.myEventProperty)
   });
 
-  srv.before('*', (req) => {
-    const data = req.data;
-    console.debug(' >>>> ' + data);
 
+  //After read Bookset
+  srv.after('READ', 'BookSet', (each, req) => {
+    if (each.stock > 300) {
+      each.title += ' -10 discounted';
+    }
+    /*
+    console.log(each.author.ID);
+    console.log(req.method);
+
+    cds.transaction(req).run(
+      SELECT.from(Authors).columns('ID', 'name')
+        .where({ ID: { in: Object.keys(each.author.ID) } })
+    ).then(items =>
+      console.log(items))
+        */
   });
+
+
+  //After read AuthorSet
+  srv.after('READ', 'AuthorSet', (each) => {
+    if (each.ID > 300) {
+      each.title += ' -10 discounted';
+    }
+  });
+
 
   srv.before('CREATE', 'AuthorSet', (req) => {
     const data = req.data;
@@ -71,17 +77,8 @@ let validate = function (srv) {
     if (affectedRows === 0) req.error(409, "Sold out, sorry")
   })
 
-  srv.after('READ', 'BookSet', (each) => {
-
-
-    if (each.stock > 300) {
-      each.title += ' -10 discounted';
-    }
-  });
-
-  
 
 };
 
 
-module.exports = validate;
+module.exports = cds.service.impl(service_handler);

@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "jest": "^29.7.0",
     "sqlite3": "^5.1.6",
     "supertest": "^6.3.3"
   },
@@ -31,6 +32,7 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "deploy": "cds deploy --to sqlite:db/my-bookshop.db"
+    "deploy": "cds deploy --to sqlite:db/my-bookshop.db",
+    "test": "jest"
   }
 }

@@ -1,3 +1,10 @@
+
+###
+#
+# Get the EDMX metadata file generated!
+GET http://localhost:4004/browse/$metadata
+
+
 ###
 #
 # Browse Books
@@ -5,6 +12,16 @@
 GET http://localhost:4004/browse/BookSet?
   &$select=title,stock
   &$expand=author
+
+
+###
+#
+# Delete Author wit ID 101
+#
+PATCH  http://localhost:4004/browse/BookSet(201)
+Content-Type: application/json
+
+{"title": "updated wutherings"}
 
 
 ###
@@ -23,6 +40,16 @@ GET http://localhost:4004/browse/AuthorSet?$expand=books
 # Get Author wit ID 101
 #
 GET http://localhost:4004/browse/AuthorSet(101)
+
+
+
+
+###
+#
+# Delete Author wit ID 101
+#
+DELETE http://localhost:4004/browse/AuthorSet(101)
+
 
 ###
 #
