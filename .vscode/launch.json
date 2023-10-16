@@ -11,7 +11,13 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${file}"
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "cds",
+            "args": [
+                "serve",
+                "--with-mocks",
+                "--in-memory?"
+              ],
         }
     ]
 }
