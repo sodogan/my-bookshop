@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "MyDB",
+            "database": "${workspaceFolder:my-bookshop}/db/my-bookshop.db"
+        }
+    ]
+}

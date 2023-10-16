@@ -2,19 +2,19 @@
 #
 # Browse Books
 #
-GET http://localhost:4004/odata/v4/catalog/BookSet?
+GET http://localhost:4004/browse/BookSet?
   &$select=title,stock
   &$expand=author
 
 
 ###
 # Get all Authors
-GET http://localhost:4004/odata/v4/catalog/AuthorSet
+GET http://localhost:4004/browse/AuthorSet
 
 
 ###
 # Get all Authors
-GET http://localhost:4004/odata/v4/catalog/AuthorSet?$expand=books
+GET http://localhost:4004/browse/AuthorSet?$expand=books
 
 
 
@@ -22,13 +22,13 @@ GET http://localhost:4004/odata/v4/catalog/AuthorSet?$expand=books
 #
 # Get Author wit ID 101
 #
-GET http://localhost:4004/odata/v4/catalog/AuthorSet(101)
+GET http://localhost:4004/browse/AuthorSet(101)
 
 ###
 #
 # Update Author with ID 101
 #
-POST http://localhost:4004/odata/v4/catalog/AuthorSet
+POST http://localhost:4004/browse/AuthorSet
 Content-Type: application/json
 
 {"ID": 190, "name": "New author"}
@@ -38,14 +38,14 @@ Content-Type: application/json
 #
 # Get all the orders
 #
-GET  http://localhost:4004/odata/v4/catalog/OrderSet
+GET  http://localhost:4004/browse/OrderSet
 
 
 ###
 #
 # Order a Book
 #
-POST http://localhost:4004/odata/v4/catalog/OrderSet
+POST http://localhost:4004/browse/OrderSet
 Content-Type: application/json;IEEE754Compatible=true
 
 {"book_ID": 201, "country_code":"USA", "amount": 5}
