@@ -11,16 +11,17 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "supertest": "^6.3.3"
   },
   "cds": {
     "requires": {
       "db": {
         "kind": "sqlite",
-        "model": [ 
-        "db/",
-        "srv/",
-        "app/"
+        "model": [
+          "db/",
+          "srv/",
+          "app/"
         ],
         "credentials": {
           "database": "db/my-bookshop.db"

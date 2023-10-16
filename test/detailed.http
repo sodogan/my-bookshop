@@ -45,7 +45,7 @@ GET  http://localhost:4004/browse/OrderSet
 #
 # Order a Book
 #
-POST http://localhost:4004/browse/OrderSet
+POST http://localhost:4004/odata/v4/catalog/OrderSet
 Content-Type: application/json;IEEE754Compatible=true
 
 {"book_ID": 201, "country_code":"USA", "amount": 5}

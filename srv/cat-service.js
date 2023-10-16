@@ -29,7 +29,7 @@ let validate = function (srv) {
   let { Books } = cds.entities('my-bookshop');
 
 
-  srv.on('send', async (req) => {
+  srv.on('sendGreeting', async (req) => {
     const event = {
       myEventProperty: 'my message payload'
     }
@@ -38,6 +38,11 @@ let validate = function (srv) {
 
     return "Successfully sent event of type myEventName"
   })
+
+  //Handler here for the custom event
+  srv.on('myEventName', (msg) => {
+    console.log('==> Received msg of type myEventName:' + msg.data.myEventProperty)
+  });
 
   srv.before('*', (req) => {
     const data = req.data;
@@ -74,10 +79,7 @@ let validate = function (srv) {
     }
   });
 
-  //Handler here for the custom event
-  srv.on('myEventName', (msg) => {
-    console.log('==> Received msg of type myEventName:' + msg.data.myEventProperty)
-  });
+  
 
 };
 
