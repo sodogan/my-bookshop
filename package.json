@@ -1,0 +1,35 @@
+{
+  "name": "my-bookshop",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "sqlite3": "^5.1.6"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "model": [ 
+        "db/",
+        "srv/",
+        "app/"
+        ],
+        "credentials": {
+          "database": "db/my-bookshop.db"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "deploy": "cds deploy --to sqlite:db/my-bookshop.db"
+  }
+}
